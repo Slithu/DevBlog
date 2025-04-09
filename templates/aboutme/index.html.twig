@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DevBlog - About Me{% endblock %}
+
+{% block body %}
+<div class="bg-gradient-to-r from-gray-100 via-gray-200 to-gray-300 py-12">
+    <div class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+        <h1 class="text-4xl font-extrabold text-gray-800 text-center mb-6">About Me</h1>
+
+        <div class="text-lg text-gray-700 text-center">
+            <p class="mb-4">
+                Witaj na mojej stronie! Jestem absolwentem Informatyki na Uniwersytecie Rzeszowskim, specjalizacja Aplikacje Internetowe. Chcę się rozwijać jako Junior PHP Developer.
+                W czasie studiów wykonałem kilka projektów (w tym pracę inżynierską) we frameworku Laravel i w nim czuję się najlepiej. Obecnie uczę się także framweworka Symfony, 
+                jak własnie widać, bo w nim wykonuję ten projekt bloga DevBlog. Planuję także naukę WordPress'a oraz innym frameworków do tworzenia aplikacji internetowych np. Django od Pythona.  
+            </p>
+            <p class="mb-4">
+                Jeśli chcesz poznać więcej moich projektów, sprawdź: <a href="https://github.com/Slithu/" target="_blank" class="text-blue-600 hover:underline">Moje Projekty</a>.
+            </p>
+            <p class="mt-4">
+                Możesz pobrać moje CV w formacie PDF klikając:
+                <a href="{{ asset('cv.pdf') }}" class="text-blue-600 hover:underline" target="_blank">Pobierz CV</a>
+                lub klikając <span id="showIframe" class="text-blue-600 hover:underline cursor-pointer">tutaj</span> wyświetlić CV w iframe.
+            </p>
+            
+            <div id="iframeContainer" class="mt-4 hidden">
+                <iframe src="{{ asset('cv.pdf') }}" width="100%" height="600px" frameborder="0"></iframe>
+            </div>
+            
+            <script>
+                document.getElementById('showIframe').addEventListener('click', function() {
+                    var iframeContainer = document.getElementById('iframeContainer');
+                    if (iframeContainer.classList.contains('hidden')) {
+                        iframeContainer.classList.remove('hidden');
+                    } else {
+                        iframeContainer.classList.add('hidden');
+                    }
+                });
+            </script>            
+        </div>
+
+        <div class="mt-8 text-center">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Why blog?</h2>
+            <p class="text-lg text-gray-700 mb-4">
+                Zdecydowałem się na stworzenie takiego projektu, aby poznać i nauczyć się Symfony. Projekt bloga jest w miarę prosty do stworzenia, aby zaznajomić się z tym framweorkiem.
+                Projekt DevBlog obejmuje stworzenie aplikacji internetowej bloga o programowaniu, w tym system logowania i rejestracji, podział roli w aplikacji na administratora i użytkownika,
+                tworzenie postów na blogu, dodawanie komentarzy i like'ów do tych postów.
+            </p>
+        </div>
+
+        <div class="mt-8 text-center">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">My Skills</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 text-center justify-center">
+                <div class="flex flex-col items-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/PHP-logo.svg/150px-PHP-logo.svg.png" alt="PHP" class="w-22 h-16 mb-2">
+                    <span class="text-base text-gray-800 font-semibold">PHP (Laravel, Symfony)</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/250px-Unofficial_JavaScript_logo_2.svg.png" alt="JavaScript" class="w-16 h-16 mb-2">
+                    <span class="text-base text-gray-800 font-semibold">JavaScript (Podstawy)</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python" class="w-16 h-16 mb-2">
+                    <span class="text-base text-gray-800 font-semibold">Python (Podstawy)</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/150px-HTML5_logo_and_wordmark.svg.png" alt="HTML" class="w-16 h-16 mb-2">
+                    <span class="text-base text-gray-800 font-semibold">HTML</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Official_CSS_Logo.svg/120px-Official_CSS_Logo.svg.png" alt="CSS" class="w-16 h-16 mb-2">
+                    <span class="text-base text-gray-800 font-semibold">CSS (Tailwind CSS, Bootstrap)</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/MySQL_textlogo.svg/250px-MySQL_textlogo.svg.png" alt="Bazy danych" class="w-34 h-16 mb-2">
+                    <span class="text-base text-gray-800 font-semibold">Bazy danych (MySQL, PostgreSQL)</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Git-logo.svg/250px-Git-logo.svg.png" alt="Git" class="w-29 h-16 mb-2">
+                    <span class="text-base text-gray-800 font-semibold">Git</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8">
+            <h2 class="text-2xl text-center font-semibold text-gray-800 mb-4">Thank you for visiting!</h2>
+        </div>
+    </div>
+</div>
+{% endblock %}
