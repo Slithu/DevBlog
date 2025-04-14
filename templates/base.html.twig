@@ -28,19 +28,44 @@
                         <a href="/contact" class="text-[17px] font-semibold transition-all duration-200 ease-in-out hover:text-blue-400 hover:scale-105 hover:-translate-y-0.5">
                             Contact
                         </a>
+                        {% if app.user and "ROLE_ADMIN" in app.user.roles %}
+                        <a href="/admin" class="text-[17px] font-semibold transition-all duration-200 ease-in-out hover:text-blue-400 hover:scale-105 hover:-translate-y-0.5">
+                            Admin Panel
+                        </a>
+                        {% endif%}
                     </nav>
                 </div>   
 
                 <!-- Przyciski Logowania, Wylogowania, Rejestracji i UserName-->
                 <div class="flex space-x-2 ml-auto items-center">
                     {% if app.user %}
-                    <div class="relative inline-block text-left font-semibold">
-                        {{app.user.username}}
-                    </div>
-                
-                    <a href="/logout" class="bg-white text-blue-600 font-semibold py-2 px-4 rounded transition-transform duration-200 ease-in-out hover:bg-gray-100 hover:scale-105 hover:-translate-y-0.5">
-                        Log Out
-                    </a>
+                    <div class="relative inline-block text-left group">
+                        <div class="bg-blue-500 text-white font-semibold px-4 py-2 rounded-md flex items-center space-x-2 cursor-pointer transition-colors duration-300 group-hover:bg-blue-600">
+                            {% if app.user.profileImage %}
+                                <img src="{{ asset('uploads/profile_images/' ~ app.user.profileImage) }}" alt="Profile Image" class="w-8 h-8 rounded-full">
+                            {% endif %}
+                            <span>{{ app.user.username }}</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-3.5 h-3.5 text-white transition-transform duration-300 group-hover:rotate-180">
+                                <path fill="currentColor" d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/>
+                            </svg>
+                        </div>
+                    
+                        <div class="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-blue-600 ring-1 ring-white ring-opacity-5 opacity-0 scale-95 transform transition-all duration-300 ease-out invisible group-hover:visible group-hover:opacity-100 group-hover:scale-100 z-10">
+                            <div class="py-1" role="menu" aria-orientation="vertical">
+                                <span class="block px-4 py-2 text-base text-white font-semibold" role="menuitem">
+                                    Signed in as {{ app.user.email }}
+                                </span>
+                                <hr class="border-t border-white my-1">
+                                <a href="/my-profile" class="block px-4 py-2 text-base text-white font-semibold hover:bg-blue-400 transition-colors duration-200" role="menuitem">
+                                    My Profile
+                                </a>
+                                <a href="/logout" class="block px-4 py-2 text-base text-white font-semibold hover:bg-blue-400 transition-colors duration-200" role="menuitem">
+                                    Logout
+                                </a>
+                            </div>
+                        </div>
+                    </div>     
+                                                           
                     {% else %}
                         <!-- Login and Register buttons when user is not logged in -->
                         <a href="/login" class="bg-white text-blue-600 font-semibold py-2 px-4 rounded transition-transform duration-200 ease-in-out hover:bg-gray-100 hover:scale-105 hover:-translate-y-0.5">
@@ -64,6 +89,6 @@
             <div class="container mx-auto text-center">
                 <p>&copy; {{ "now"|date("Y") }} DevBlog. All Rights Reserved.</p>
             </div>
-        </footer>
+        </footer> 
     </body>
 </html>

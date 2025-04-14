@@ -33,6 +33,30 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
+    public function findBySearch($search = '', $excludeAdmin = true)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT * FROM public."user" u
+                WHERE (u.username LIKE :search OR u.email LIKE :search)';
+        
+        if ($excludeAdmin) {
+            $sql .= ' AND NOT EXISTS (
+                        SELECT 1
+                        FROM json_array_elements_text(u.roles) AS role
+                        WHERE role = :admin
+                    )';
+        }
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue('search', '%' . $search . '%');
+        $stmt->bindValue('admin', 'ROLE_ADMIN');
+
+        $result = $stmt->executeQuery()->fetchAllAssociative();
+
+        return $result;
+    }
+
     //    /**
     //     * @return User[] Returns an array of User objects
     //     */

@@ -137,7 +137,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function eraseCredentials(): void
     {
-        // Jeśli przechowujesz dane tymczasowe, wyczyść je tutaj.
+        // Czyszczenie tymczasowych danych
     }
 
     /**

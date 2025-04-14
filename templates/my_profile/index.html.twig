@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DevBlog - My Profile{% endblock %}
+
+{% block body %}
+<div class="max-w-2xl mx-auto mt-10 mb-10 bg-white p-6 rounded-lg shadow-lg">
+    <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">My Profile</h1>
+
+    <!-- Wszystkie informacje o profilu -->
+    <div class="mb-6 text-center">
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Created At:</strong> {{ user.createdAt|date('Y-m-d H:i') }}</p>
+        {% if "ROLE_ADMIN" in user.roles %}
+            <p><strong>Role:</strong> Admin</p>
+        {% endif %}
+
+    <!-- Profile Image -->
+    <br>
+    <div class="mb-6 text-center flex justify-center items-center flex-col">
+        {% if user.profileImage %}
+            <div class="flex justify-center items-center mb-2">
+                <img src="{{ asset('uploads/profile_images/' ~ user.profileImage) }}" alt="Profile Image" class="w-32 h-32 rounded-full object-cover">
+            </div>
+        {% else %}
+            <div class="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center mb-2">
+                <span class="text-gray-500 text-center">No Image</span>
+            </div>
+        {% endif %}
+        <form action="{{ path('app_upload_profile_image') }}" method="post" enctype="multipart/form-data" class="flex items-center space-x-2">
+            <input type="file" name="profile_image" class="border border-gray-300 rounded-md px-4 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Upload</button>
+        </form>
+    </div>    
+
+    <!-- Edit Form -->
+    <form action="{{ path('app_update_profile') }}" method="post" class="space-y-4">
+        <div>
+            <label class="block text-left font-medium text-gray-600">Username</label>
+            <input type="text" name="username" value="{{ user.username }}" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium text-gray-600">
+        </div>
+        <div>
+            <label class="block text-left font-medium text-gray-600">Email</label>
+            <input type="email" name="email" value="{{ user.email }}" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium text-gray-600">
+        </div>
+        <div>
+            <label class="block text-left font-medium text-gray-600">New Password (optional)</label>
+            <input type="password" name="password" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium text-gray-600">
+        </div>
+        <div class="flex justify-center space-x-4 pt-4">
+            <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Save Changes</button>
+        </div>
+    </form>
+    
+    <div class="border-t border-gray-300 mt-6"></div>
+    <div class="mt-6 p-4 bg-yellow-100 border border-yellow-400 rounded-lg">
+        <p class="text-yellow-700 text-center">Warning: Deleting your account is permanent and cannot be undone.</p>
+    </div>
+    <div class="flex justify-center space-x-4 pt-2 mt-4">
+        <button onclick="openModal()" type="button" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+            Delete Account
+        </button>
+    </div>
+
+    <!-- Modal -->
+    <div id="deleteModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full text-center border border-gray-200">
+            <h2 class="text-xl font-semibold mb-4">Confirm Deletion</h2>
+            <p class="mb-6 text-gray-700">Are you sure you want to delete your account? This action cannot be undone.</p>
+
+            <div class="flex justify-center gap-4">
+                <form action="{{ path('app_delete_account') }}" method="post">
+                    <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                        Yes, Delete
+                    </button>
+                </form>
+                <button onclick="closeModal()" class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('click', function(event) {
+            const modal = document.getElementById('deleteModal');
+            const modalContent = modal.querySelector('div');
+
+            if (!modalContent.contains(event.target) && !event.target.matches('button[onclick="openModal()"]')) {
+                closeModal();
+            }
+        });
+
+        function openModal() {
+            document.getElementById('deleteModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('deleteModal').classList.add('hidden');
+        }
+    </script>
+</div>
+{% endblock %}

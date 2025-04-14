@@ -14,20 +14,26 @@
         {{ form_start(registrationForm) }}
             <div class="mb-4 text-gray-600 text-base font-medium">
                 {{ form_row(registrationForm.username, {
-                    'attr': {'class': 'w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'}
+                    'attr': {
+                        'class': registrationForm.username.vars.errors|length > 0 ? 'w-full p-2 border border-red-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500' : 'w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    }
                 }) }}
             </div>
 
             <div class="mb-4 text-gray-600 text-base font-medium">
                 {{ form_row(registrationForm.email, {
-                    'attr': {'class': 'w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'}
+                    'attr': {
+                        'class': registrationForm.email.vars.errors|length > 0 ? 'w-full p-2 border border-red-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500' : 'w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    }
                 }) }}
             </div>
 
             <div class="mb-4 text-gray-600 text-base font-medium">
                 {{ form_row(registrationForm.plainPassword, {
                     'label': 'Password',
-                    'attr': {'class': 'w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'}
+                    'attr': {
+                        'class': registrationForm.plainPassword.vars.errors|length > 0 ? 'w-full p-2 border border-red-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500' : 'w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    }
                 }) }}
             </div>
 
